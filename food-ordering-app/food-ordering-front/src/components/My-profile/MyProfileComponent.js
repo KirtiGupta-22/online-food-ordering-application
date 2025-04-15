@@ -114,7 +114,7 @@ const MyProfileComponent = () => {
     }
 
     const handleSubmit = () => {
-        //validacija unosa
+
         console.log(firstNameEdit + " " + lastNameEdit + " " + emailEdit + " " + usernameEdit + " " + phoneNumberEdit + " " + addressEdit)
         if(firstNameEdit.trim() === '' || lastNameEdit.trim() === ''
             || emailEdit.trim() === '' || usernameEdit.trim() === '' 
@@ -148,7 +148,7 @@ const MyProfileComponent = () => {
     }
 
     const validateEmail = () => {
-        //treba bez ''
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(emailEdit);
     };

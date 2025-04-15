@@ -18,7 +18,7 @@ const RegistrationComponent = () => {
 
   const createUser = (e) => {
       e.preventDefault();
-      //validacija unosa
+
       if(firstName.trim() === '' || lastName.trim() === ''
         || email.trim() === '' || username.trim() === '' || phoneNumber.trim() === '' 
         || password.trim() === '' || address.trim() === ''){
