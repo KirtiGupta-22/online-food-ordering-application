@@ -23,7 +23,6 @@ public class OrderItem {
 	
 	
 	private String mealName;
-	// mozda bi bilo bolje BigDecimal da se cuva u bazi umesto int
 	private int mealPrice;
 	private String mealDescription;
 	

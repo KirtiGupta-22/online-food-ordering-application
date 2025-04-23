@@ -46,17 +46,13 @@ const ListMealByMealTypeComponent = () => {
     }, [])
 
     const handleShowMealQuantity = (meal) => {   
-        //mora ovako da se setuje, kada se vrsi izmena, nakon toga zapamti id od starog pa radi izmenu
+
         setId(meal.id);
         setName(meal.name);
         setPrice(meal.price);
-        // treba setMealType(meal.mealType) umesto setMealType(meal.mealType.typeName); ukoliko hocu da citam i mealType
-        // u tabeli na front-u, jer posle kada se salje na server-u, ne moze da parsira typeName sto dobije, pa bude bad request
-        // ili da menjam logiku na back-u za model, mada onda bi se sve zapetljalo
-        // bolje resenje bi bilo da ne saljem objekte vec varijable, jer se posle ulancaju objekti
-        // i dosta nepotrebnih podataka se salje
+
         setMealType(meal.mealType)
-        // setMealType(meal.mealType.typeName);
+//         setMealType(meal.mealType.typeName);
         setImage(meal.image);
         setImageName(meal.imageName);
         setDescription(meal.description);
@@ -137,7 +133,8 @@ const ListMealByMealTypeComponent = () => {
                     meals.map((meal) => {
                         return(
                             <div className='card-meals-by-meal-type' key={meal.id}>   
-                                <img className='image' src={"data:image/png;base64," + meal.image} alt=''></img>     
+                               <img className='image' src={meal.image} alt={meal.name} />
+
                                 <div className='name-container'>
                                     <h4 className='name-content'>{meal.name}</h4>
                                 </div>

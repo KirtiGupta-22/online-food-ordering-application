@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.cors().and()
 		.csrf().disable().
 				authorizeRequests()
-				.antMatchers("/api/login","/api/menu", "/api/finalOrder/createFinalOrderNotLoggedIn", "/api/user/registration", "/api/finalOrder/createFinalOrder", "/api/meal/getMealsByMealTypeId/{id}", "/api/finalOrder/getOrderItemsByFinalOrderId/{id}","/api/finalOrder/getFinalOrderById/{id}", "/api/mealType/getAllMealTypes")
+				.antMatchers("/api/login","/api/menu", "/api/finalOrder/createFinalOrderNotLoggedIn", "/api/user/registration", "/api/finalOrder/createFinalOrder", "/api/meal/getMealsByMealTypeId/{id}", "/api/finalOrder/getOrderItemsByFinalOrderId/{id}","/api/finalOrder/getFinalOrderById/{id}", "/api/mealType/getAllMealTypes", "/api/meal/getAllMeals")
         	    .permitAll()
 				.antMatchers(HttpMethod.OPTIONS, "/**")
                .permitAll().anyRequest().authenticated()

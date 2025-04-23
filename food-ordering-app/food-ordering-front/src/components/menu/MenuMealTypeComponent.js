@@ -8,6 +8,13 @@ const MenuMealTypeComponent = () => {
 const [mealTypes, setMealTypes] = useState([]);
 
 useEffect(() =>{
+//    axios.get("http://localhost:8080/api/menu")
+//        .then(response => {
+//          setMenuItems(response.data);
+//        })
+//        .catch(error => {
+//          console.error("Error fetching menu:", error);
+//        });
     getAllMealTypes();
 }, [])
 
@@ -24,7 +31,9 @@ const getAllMealTypes = () =>{
             mealTypes.map((mealType) => {
                 return(
                     <div className='card-meal-type' key={mealType.id}>   
-                        <img className='image' src={"data:image/png;base64," + mealType.image} alt=''></img>     
+
+                          <img className='image' src={mealType.image} alt={mealType.typeName} />
+
                         <div className='name-container'>
                             <h4 className='name-content'>{mealType.typeName}</h4>
                         </div>
