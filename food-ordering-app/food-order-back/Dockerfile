@@ -6,10 +6,14 @@ WORKDIR /app
 
 # Copy the necessary files to build the app
 COPY food-order-back/pom.xml .
+RUN mvn dependency:go-offline
+
 COPY food-order-back/src ./src
+RUN mvn clean package -DskipTests
+
 
 # Build the application, skipping tests
-RUN mvn clean package -DskipTests
+
 
 # Second stage: Create final lightweight image
 FROM openjdk:17-jdk-alpine

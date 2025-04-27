@@ -18,7 +18,7 @@ const CreateEmployeeComponent = () => {
 
   const navigate = useNavigate();
 
-  //ako postoji id, znaci da se radi izmena i prvo se setuju podaci dobijeni od servera
+
   useEffect(() => {
     id && UserService.getEmployeeById(id).then((response) =>{
       setFirstName(response.data.firstName);
@@ -50,7 +50,7 @@ const CreateEmployeeComponent = () => {
       alertInvalid("Invalid phone number or it has less than 5 digits");
     }
     else{
-      //ako id postoji, odnosno ako je prosledjen radi se izmena postojeceg
+
       if(id){
         UserService.updateEmployee(id, user).then((response) =>{
           if(response.data.toString() === "success"){
@@ -73,7 +73,7 @@ const CreateEmployeeComponent = () => {
           console.log(error);
         })
       }
-      //ako nije prosledjen id, radi se kreiranje novog
+
       else{
         UserService.createEmployee(user).then((response) =>{
           console.log(response.data);
