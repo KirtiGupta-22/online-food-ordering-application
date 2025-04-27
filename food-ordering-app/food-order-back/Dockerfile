@@ -1,29 +1,30 @@
-# First stage: Build the application
-FROM maven:3.9.6-eclipse-temurin-17 AS build
-LABEL authors="kg474"
+# Use Maven to build the project
+FROM maven:3.9.6-eclipse-temurin-17 as builder
 
+# Set working directory
 WORKDIR /app
 
-# Copy the necessary files to build the app
+# Copy backend pom.xml and src
 COPY food-order-back/pom.xml .
-RUN mvn dependency:go-offline
-
 COPY food-order-back/src ./src
-RUN mvn clean package -DskipTests
+COPY food-order-back/image-meals ./image-meals
+COPY food-order-back/.mvn ./.mvn
+COPY food-order-back/mvnw ./mvnw
 
+# Build the application
+RUN ./mvnw clean package -DskipTests
 
-# Build the application, skipping tests
+# Use a lightweight JDK image to run
+FROM openjdk:17-jdk-slim
 
-
-# Second stage: Create final lightweight image
-FROM openjdk:17-jdk-alpine
+# Set working directory
 WORKDIR /app
 
-# Copy the JAR from the build stage
-COPY --from=build /app/target/food-order-back-0.0.1-SNAPSHOT.jar app.jar
+# Copy the built jar file
+COPY --from=builder /app/target/*.jar app.jar
 
-# Expose the application port
+# Expose the port (you can change this if needed)
 EXPOSE 8080
 
-# Start the application
+# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
