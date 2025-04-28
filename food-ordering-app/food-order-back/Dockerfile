@@ -1,13 +1,31 @@
-# Use an official OpenJDK image
-FROM openjdk:17-jdk-slim
+# --------- Stage 1: Build ---------
+FROM maven:3.9.4-eclipse-temurin-17 AS build
 
-# Set the working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy the built jar file into the container
-COPY target/food-order-back-0.0.1-SNAPSHOT.jar app.jar
+# Copy pom.xml and download dependencies first (for better caching)
+COPY pom.xml .
+COPY .mvn .mvn
+COPY mvnw .
+RUN ./mvnw dependency:go-offline
 
-# Expose port (example: 8080)
+# Copy the entire project
+COPY src src
+
+# Package the application
+RUN ./mvnw clean package -DskipTests
+
+# --------- Stage 2: Run ---------
+FROM openjdk:17-jdk-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy the packaged jar file from the build stage
+COPY --from=build /app/target/food-order-back-0.0.1-SNAPSHOT.jar app.jar
+
+# Expose the port your Spring Boot app runs on
 EXPOSE 8080
 
 # Run the jar file
